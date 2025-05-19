@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Acer Aspire Lite AL14-52M-54V4",
+        "data": {
+            "year": 2024,
+            "price": 10000000,
+            "cpu_model": "Intel Core i5-1334 CPU @1.30-4.60Ghz",
+            "hard_disk_size": "512GB SSD M2 NVMe",
+            "capacity": "10 cpu",
+            "screen_size": "14 inch",
+            "color": "black"
+        },
+        "is_used": false
+    },
+    {
+        "name": "HP 245 G10",
+        "data": {
+            "year": 2023,
+            "price": 6000000,
+            "cpu_model": "Ryzen 3",
+            "hard_disk_size": "512GB SSD M2 NVMe",
+            "capacity": "4 cpu",
+            "screen_size": "14 inch",
+            "color": "silver"
+        },
+        "is_used" : false
+    },
+    {
+        "name": "FUJITSU LIFEBOOK U9310",
+        "data": {
+            "year": 2024,
+            "price": 7000000,
+            "cpu_model": "Intel Core i7 Gen 10610U @2,3Ghz",
+            "hard_disk_size": "512GB SSD M2 NVMe",
+            "capacity": "10 cpu",
+            "screen_size": "14 inch",
+            "color": "black"
+        },
+        "is_used" : false
+    },
+    {
+        "name": "Dell Latitude 5410",
+        "data": {
+            "year": 2024,
+            "price": 4000000,
+            "cpu_model": "Intel Core i7 - Gen 10",
+            "hard_disk_size": "512GB SSD M2 NVMe",
+            "capacity": "10 cpu",
+            "screen_size": "14 inch",
+            "color": "black"
+        },
+        "is_used" : false
+    }
+]
