@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Login Account",
+    "description": "Login Account Endpoint Response",
+    "type": "object",
+    "properties": {
+        "token": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "token"
+    ]
+}

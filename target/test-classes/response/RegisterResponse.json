@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Register Account",
+    "description": "Register Account Endpoint Response",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "full_name": {
+            "type": "string"
+        },
+        "department": {
+            "type": "string"
+        },
+        "phone_number": {
+            "type": "string"
+        },
+        "create_at": {
+            "type": "string"
+        },
+        "update_at": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "email",
+        "full_name",
+        "department",
+        "phone_number",
+        "create_at",
+        "update_at"
+    ]
+}
