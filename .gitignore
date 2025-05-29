@@ -5,7 +5,7 @@
 *.log
 
 # Maven target directory
-/target/
+target/
 
 # IntelliJ IDEA project files
 .idea/

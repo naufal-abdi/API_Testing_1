@@ -71,6 +71,11 @@
             <version>1.18.38</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -80,9 +85,16 @@
                 <version>3.5.3</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/cucumber.xml</suiteXmlFile> <!-- jika
-                        testng.xml di root -->
+                        <suiteXmlFile>src/test/resources/cucumber.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    
+                    <!--<configuration>
+                        <includes>
+                            <include>**/CucumberRunner*.java</include>
+                        </includes>
+                    </configuration>
+                    -->
+                    
                     <systemPropertyVariables>
                         <org.slf4j.simpleLogger.defaultLogLevel>debug</org.slf4j.simpleLogger.defaultLogLevel>
                     </systemPropertyVariables>

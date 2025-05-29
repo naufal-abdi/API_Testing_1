@@ -5,6 +5,7 @@
         <classes>
             <class name="cucumber.runners.CucumberRunnerRegistration"/>
             <class name="cucumber.runners.CucumberRunnerLogin"/>
+            <class name="cucumber.runners.CucumberRunnerDepartment"/>
         </classes>
     </test>
 </suite>

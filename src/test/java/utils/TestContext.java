@@ -3,23 +3,34 @@ package utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.restassured.response.Response;
+
 public class TestContext {
     private static final Map<String, Object> contextData = new HashMap<>();
+    private Response response;
 
-    public static void set(String key, Object value) {
+    public void set(String key, Object value) {
         contextData.put(key, value);
     }
 
-    public static Object get(String key) {
+    public Object get(String key) {
         return contextData.get(key);
     }
 
-    public static String getString(String key) {
+    public void setResponse(Response response) {
+        this.response = response;
+    }
+
+     public Response getResponse() {
+        return response;
+    }
+
+    public String getString(String key) {
         Object value = contextData.get(key);
         return value != null ? value.toString() : null;
     }
 
-    public static void clear() {
+    public void clear() {
         contextData.clear();
     }
 }

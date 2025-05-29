@@ -5,7 +5,7 @@ Feature: Login Account
 
 
     Scenario:
-        When Login account with http "POST" request to "/api/login" with body:
+        When Send request api to endpoint login using "POST" method with body:
             """
             {
                 "email": "<email>",
@@ -14,6 +14,6 @@ Feature: Login Account
             """
         Then The response login endpoint status must be 200
         And The response login api schema should be match with schema "response/LoginResponse.json"
-# Then Map API Response
-# Then check api data response
-# And Save the token from the response to local storage
+        Then Map login API Response
+        Then check login api data response
+        And Save the token from the login api response to local storage
