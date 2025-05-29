@@ -1,5 +1,0 @@
-# Created at 2025-05-19T00:16:00.500
-Boot Manifest-JAR contains absolute paths in classpath 'D:\QA-Automation-Lesson\Bootcamp-Automation-Selenium-AfterOffice\Day-3\Tugas\api_testing_1\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

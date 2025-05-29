@@ -1,0 +1,10 @@
+<!-- testng.xml -->
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="API Testing Cucumber BDD" verbose="5" parallel="false">
+    <test name="All Tests">
+        <classes>
+            <class name="cucumber.runners.CucumberRunnerRegistration"/>
+            <class name="cucumber.runners.CucumberRunnerLogin"/>
+        </classes>
+    </test>
+</suite>
