@@ -3,8 +3,7 @@
 <suite name="API Testing" verbose="2">
     <test name="All Tests">
         <classes>
-            <class name="tests.AccountTest"/>
-            <class name="tests.ObjectTest"/>
+            <class name="e2e.LoginTest"/>
         </classes>
     </test>
 </suite>

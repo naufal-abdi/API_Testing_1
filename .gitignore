@@ -36,3 +36,5 @@ test-output/
 
 # Dependency directories
 lib/
+
+*.env

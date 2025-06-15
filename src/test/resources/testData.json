@@ -1,0 +1,8 @@
+{
+    "invalidLoginData" : [
+        {
+            "username" : "demo",
+            "password" : "demo"
+        }
+    ]
+}
