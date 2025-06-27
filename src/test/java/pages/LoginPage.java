@@ -36,9 +36,9 @@ public class LoginPage {
         fieldUsername.sendKeys(username);
         fieldPassword.sendKeys(password);        
 
-        btnLogin.click();
+        PageUtils.waitForSeconds(2);
 
-        PageUtils.waitForPageLoad(driver, 2);
+        btnLogin.click();
     }
 
     public WebElement getLoginButton() {

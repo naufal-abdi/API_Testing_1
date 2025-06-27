@@ -1,9 +1,9 @@
-package utils;
+package com.testapi;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,32 +38,24 @@ public class JsonDataReader {
         return (keyNode != null) ? keyNode : null;
     }
 
-    public HashMap<String, String> getInvalidLoginData() {
+    public List<String> getInvalidLoginData() {
         String invalidUsername = JsonPath.read(jsonStringOutput, "$.invalidLoginData[0].username");
         String invalidPassword = JsonPath.read(jsonStringOutput, "$.invalidLoginData[0].password");
 
-        HashMap<String, String> invalidLoginData = new HashMap<>();
-
-        invalidLoginData.put("username", invalidUsername);
-        invalidLoginData.put("password", invalidPassword);
+        List<String> invalidLoginData = Arrays.asList(invalidUsername, invalidPassword);
 
         return invalidLoginData;
     }
 
-    public HashMap<String, String> getValidLoginData() {
+    public List<String> getValidLoginData() {
         String validUsername = JsonPath.read(jsonStringOutput, "$.invalidLoginData[1].username");
         String validPassword = JsonPath.read(jsonStringOutput, "$.invalidLoginData[1].password");
 
-        HashMap<String, String> validLoginData = new HashMap<>();
-
-        validLoginData.put("username", validUsername);
-        validLoginData.put("password", validPassword);
-
-        return validLoginData;
+        return Arrays.asList(validUsername, validPassword);
     }
 
-    public ArrayList<String> getProductData() {
-        ArrayList<String> products = JsonPath.read(jsonStringOutput, "$.productToCheckout");
+    public List<String> getProductData() {
+        List<String> products = JsonPath.read(jsonStringOutput, "$.productToCheckout");
 
         return products;
     }

@@ -1,85 +1,98 @@
 package e2e;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.util.HashMap;
-
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import pages.LoginPage;
-import utils.JsonDataReader;
+import pages.ProductPage;
 import utils.PageUtils;
-import utils.WebDriverFactory;
-import io.github.cdimascio.dotenv.Dotenv;
 
-public class LoginTest {
 
-    WebDriver driver;
-    LoginPage loginPage;
+public class LoginTest extends BaseTest {
 
-    String browser = "edge";
-    HashMap<String, String> invalidLoginData = new HashMap<>();
-
-    private static final Dotenv dotenv = Dotenv.configure().load();
+    private LoginPage loginPage;
+    private ProductPage productPage;
 
     @BeforeClass
-    public void setUp() {
-        //read json file
-        try {
-            JsonNode jsonData = JsonDataReader.readJsonFile(dotenv.get("TEST_DATA_PATH"));
-
-            String invalidUsername = (String) JsonDataReader.getValueByKey(jsonData, "invalidLoginData.username");
-
-            String invalidPassword = (String) JsonDataReader.getValueByKey(jsonData, "invalidLoginData.password");
-
-            invalidLoginData.put("username", invalidUsername);
-
-            invalidLoginData.put("password", invalidPassword);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            driver = WebDriverFactory.getChromeDriver();
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            driver = WebDriverFactory.getFirefoxDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            driver = WebDriverFactory.getEdgeDriver();
-        } else {
-            System.out.println("Browser tidak dikenali, akan menggunakan Edge sebagai gantinya");
-            driver = WebDriverFactory.getEdgeDriver();
-        }
-
-        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        // driver.manage().window().maximize();
-
+    public void setUpPage() {
         loginPage = new LoginPage(driver);
-
-        driver.get(dotenv.get("BASE_URL"));
-
-        
     }
 
     @Test
-    public void invalidLoginUsernamePassword() {
-        PageUtils.waitForElementVisible(driver, loginPage.getLoginButton(), 2);
+    public void invalidLoginEmptyUsernamePassword() throws InterruptedException {
+        PageUtils.waitForElementPresent(driver, loginPage.getLoginButton(), 5);
 
+        // Melakukan login dengan username dan password yang salah
+        loginPage.login("", "");
+
+        // Tunggu error message muncul
+        PageUtils.waitForElementVisible(driver, loginPage.getErrorElement(), 5);
+
+        // Verifikasi jika error muncul
+        assert loginPage.isErrorVisible() : "Error message tidak muncul";
+
+        PageUtils.waitForSeconds(3);
+
+        // Refresh halaman setelah pengecekan
+        driver.navigate().refresh();
+
+        PageUtils.waitForPageLoad(driver, 5);
+    }
+
+    @Test(dependsOnMethods = "invalidLoginEmptyUsernamePassword")
+    public void invalidLoginEmptyPassword() throws InterruptedException {
+        PageUtils.waitForElementPresent(driver, loginPage.getLoginButton(), 5);
+
+        // Melakukan login dengan username dan password yang salah
+        loginPage.login(invalidLoginData.get("username"), "");
+
+        // Tunggu error message muncul
+        PageUtils.waitForElementVisible(driver, loginPage.getErrorElement(), 5);
+
+        // Verifikasi jika error muncul
+        assert loginPage.isErrorVisible() : "Error message tidak muncul";
+
+        PageUtils.waitForSeconds(3);
+
+        // Refresh halaman setelah pengecekan
+        driver.navigate().refresh();
+
+        PageUtils.waitForPageLoad(driver, 5);
+    }
+
+    @Test(dependsOnMethods = "invalidLoginEmptyPassword")
+    public void invalidLoginUsernamePassword() throws InterruptedException {
+        PageUtils.waitForElementPresent(driver, loginPage.getLoginButton(), 5);
+
+        // Melakukan login dengan username dan password yang salah
         loginPage.login(invalidLoginData.get("username"), invalidLoginData.get("password"));
 
-        PageUtils.waitForElementVisible(driver, loginPage.getErrorElement(), 2);
+        // Tunggu error message muncul
+        PageUtils.waitForElementVisible(driver, loginPage.getErrorElement(), 5);
 
+        // Verifikasi jika error muncul
+        assert loginPage.isErrorVisible() : "Error message tidak muncul";
+
+        PageUtils.waitForSeconds(3);
+
+        // Refresh halaman setelah pengecekan
         driver.navigate().refresh();
+
+        PageUtils.waitForPageLoad(driver, 5);
     }
 
     @Test(dependsOnMethods = "invalidLoginUsernamePassword")
-    public void validLogin() {
-        PageUtils.waitForElementVisible(driver, loginPage.getLoginButton(), 2);
+    public void validLogin() throws InterruptedException {
+        PageUtils.waitForElementPresent(driver, loginPage.getLoginButton(), 5);
 
-        loginPage.login(dotenv.get("USERNAME"), dotenv.get("PASSWORD"));
+        // Melakukan login dengan username dan password yang valid
+        loginPage.login(validLoginData.get("username"), validLoginData.get("password"));
+
+        PageUtils.waitForPageLoad(driver, 5);
+
+        productPage = new ProductPage(driver);
+
+        PageUtils.waitForElementVisible(driver, productPage.getAppLogo(), 2);
     }
-    
+
 }

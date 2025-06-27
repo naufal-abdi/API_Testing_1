@@ -1,0 +1,10 @@
+<!-- e2e.xml -->
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="E2E Checkout Testing" verbose="5">
+    <test name="All Tests">
+        <classes>
+            <class name="e2e.LoginTest"/>
+            <class name="e2e.ProductTest"/>
+        </classes>
+    </test>
+</suite>
