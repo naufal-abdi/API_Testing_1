@@ -1,44 +1,50 @@
-package e2e;
+package cucumber.definitions;
 
+import java.util.ArrayList;
+
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
+import cucumber.hooks.Hooks;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.BuyerPage;
 import pages.CartPage;
 import pages.CompletePage;
 import pages.OverviewPage;
 import pages.ProductPage;
 import utils.PageUtils;
+import utils.JsonDataReader;
 
-
-public class ProductTest extends BaseTest {
-    
+public class ProductDefinition {
+    WebDriver driver;
     ProductPage productPage;
     CartPage cartPage;
     BuyerPage buyerPage;
     OverviewPage overviewPage;
     CompletePage completePage;
+    ArrayList<String> products = new ArrayList<>();
+    JsonDataReader jsonDataReader = new JsonDataReader();
 
-    @BeforeClass
-    public void setUpPage() {
-        if (driver == null) {
-            throw new RuntimeException("Driver is null. Make sure it is initialized properly.");
-        }
-        productPage = new ProductPage(driver);
-    }
+    // @Given("Prepare data for product test")
+    // public void setUpPage() {
+    //     driver = Hooks.driver;
 
-    @Test
+    //     if (driver == null) {
+    //         throw new RuntimeException("Driver is null. Make sure it is initialized properly.");
+    //     }
+    //     
+    //     products = jsonDataReader.getProductData();
+    // }
+
+    @When("Choose product in catalog and add to cart")
     public void chooseProduct() {
+        driver = Hooks.driver;
+        productPage = new ProductPage(driver);
         products = jsonDataReader.getProductData();
 
         System.out.println(">> TEST chooseProduct dimulai");
-
-        System.out.println("Bukan super " + products.toString());
-        System.out.println("Super " + super.products.toString());
-
         boolean titleIsVisible = PageUtils.verifyElementVisible(driver, productPage.getAppLogo(), 0);
-
         assert titleIsVisible : "App Logo tidak muncul";
 
         PageUtils.waitForSeconds(2);
@@ -79,10 +85,6 @@ public class ProductTest extends BaseTest {
 
             tempProductCartInDetail = productPage.getBtnAddToCartInDetail();
 
-            // PageUtils.verifyElementVisible(driver, btnBackToCatalog, 2);            
-
-            // PageUtils.verifyElementVisible(driver, tempProductCartInDetail, 2);
-
             tempProductCartInDetail.click();
 
             PageUtils.waitForSeconds(4);
@@ -97,7 +99,8 @@ public class ProductTest extends BaseTest {
         PageUtils.waitForSeconds(5);
     }
 
-    @Test(dependsOnMethods = "chooseProduct")
+
+    @Then("Go to cart page and verify product list")
     public void gotoCartPage() {
         products = jsonDataReader.getProductData();
 
@@ -110,7 +113,7 @@ public class ProductTest extends BaseTest {
         cartPage = new CartPage(driver);
     }
 
-    @Test(dependsOnMethods = "gotoCartPage")
+    @Then("Verify product in list")
     public void verifyProduct() {
         System.out.println("Mulai memverifikasi data");
         for (int i = 0; i < products.size(); i++) {
@@ -120,9 +123,9 @@ public class ProductTest extends BaseTest {
         }
     }
 
-    @Test(dependsOnMethods = "verifyProduct")
+    @Then("Click checkout button and fill buyer data")
     public void checkoutAndFillBuyerData() {
-        System.out.println("Checkout belanja");;
+        System.out.println("Checkout belanja");
 
         PageUtils.mouseOver(driver, cartPage.getBtnCheckout());
 
@@ -157,7 +160,7 @@ public class ProductTest extends BaseTest {
         PageUtils.waitForSeconds(2);
     }
 
-    @Test(dependsOnMethods = "checkoutAndFillBuyerData")
+    @Then("Verify product in overview page")
     public void overviewCart() {
         overviewPage = new OverviewPage(driver);
 
@@ -177,7 +180,7 @@ public class ProductTest extends BaseTest {
         PageUtils.waitForSeconds(2);
     }
 
-    @Test(dependsOnMethods = "overviewCart")
+    @Then("Verify success message and back to catalog page")
     public void verifySuccessMsg() {
         completePage = new CompletePage(driver);
 
